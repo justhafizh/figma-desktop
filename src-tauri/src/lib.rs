@@ -6,6 +6,13 @@ static POPUP_ID: AtomicUsize = AtomicUsize::new(0); // BARU
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
+  
+  #[cfg(target_os = "linux")]
+  
+  unsafe {
+    std::env::set_var("WEBKIT_DISABLE_COMPOSITING_MODE", "1");
+  }
+
   tauri::Builder::default()
     .setup(|app| {
       if cfg!(debug_assertions) {
